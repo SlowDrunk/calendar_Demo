@@ -23,5 +23,9 @@ export const getMonthDays = (year: number, month: number) => {
     days.push(dayjs(tempDate).format("DD"));
     tempDate = tempDate.add(1, "day");
   }
-  return days;
+  return {
+    days,
+    fontNum,
+    endNum,
+  };
 };
