@@ -13,12 +13,10 @@ const monthDays = computed(() => {
   return getMonthDays(Props.date.year, Props.date.month).days;
 });
 const currentMonthSection = computed(() => {
-  const startIndex = getMonthDays(Props.date.year, Props.date.month).fontNum;
-  const endIndex =
-    monthDays.value.length -
-    getMonthDays(Props.date.year, Props.date.month).endNum;
-  return [startIndex, endIndex];
-});
+    const startIndex = getMonthDays(Props.date.year, Props.date.month).fontNum
+    const endIndex = 35 - getMonthDays(Props.date.year, Props.date.month).endNum
+    return [startIndex, endIndex]
+})
 
 // 周标题
 const weekTitles = () => {
@@ -27,6 +25,30 @@ const weekTitles = () => {
   });
 };
 const weekTit = weekTitles();
+const getCurrentDayStyle = (day: string, index: number) => {
+  let style = {
+    background: "",
+    color: "",
+  };
+  if (
+    Props.date.day == day &&
+    index >= currentMonthSection.value[0] &&
+    index < currentMonthSection.value[1]
+  ) {
+    style.background = "#fff000";
+  } else {
+    style.background = "transparent";
+  }
+  if (
+    index < currentMonthSection.value[0] ||
+    index >= currentMonthSection.value[1]
+  ) {
+    style.color = "#999999";
+  } else {
+    style.color = "#000000";
+  }
+  return style;
+};
 </script>
 
 <template>
@@ -38,20 +60,9 @@ const weekTit = weekTitles();
     </div>
     <div class="grid grid-cols-7">
       <span
-        class="w-10 h-10 text-center leading-10 rounded-[50%]"
+        class="w-10 h-10 hover:bg-gray-400 text-center"
         v-for="(item, index) in monthDays"
-        :style="{
-          background:
-            Props.date.day == item &&
-            index >= currentMonthSection[0] &&
-            index < currentMonthSection[1]
-              ? '#fff000'
-              : 'transparent',
-          color:
-            index < currentMonthSection[0] || index >= currentMonthSection[1]
-              ? 'gray'
-              : 'black',
-        }"
+        :style="getCurrentDayStyle(item, index)"
         :key="index"
         >{{ item }}</span
       >
@@ -60,4 +71,3 @@ const weekTit = weekTitles();
 </template>
 
 <style lang="less" scoped></style>
-./calendarDay
