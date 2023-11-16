@@ -66,7 +66,7 @@ const selectDay = (item: string, index: number) => {
 </script>
 
 <template>
-    <div class="border" style="padding: 12px">
+    <div class="border p-3.5">
         <div class="grid grid-cols-7">
             <span class="w-10 h-10" v-for="item in weekTit" :key="item">{{
                 item
