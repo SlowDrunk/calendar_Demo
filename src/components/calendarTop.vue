@@ -1,17 +1,11 @@
 <script lang="ts" setup>
 import { yearDecrease, yearIncrease } from "./claendarTop";
-import { computed } from "vue";
+import { selectYear } from "./index";
 const Props = defineProps({
   date: {
     type: Object,
     default: () => ({}),
   },
-});
-console.log(Props);
-const yearNMonth = computed(() => {
-  const month = Props.date.month;
-  const year = Props.date.year;
-  return month > 0 ? `${year}/${month}` : year;
 });
 </script>
 
@@ -22,7 +16,7 @@ const yearNMonth = computed(() => {
     </div>
     <div class="font-bold cursor-pointer" @click="yearDecrease(date)">&lt</div>
     <div class="flex flex-row">
-      <span>{{ date.year }}</span>
+      <span @click="selectYear(date, 2022)">{{ date.year }}</span>
       <span v-show="date.month > 0">/{{ date.month }}</span>
     </div>
     <div class="font-bold cursor-pointer" @click="yearIncrease(date)">&gt</div>

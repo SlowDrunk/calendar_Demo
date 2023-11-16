@@ -1,3 +1,4 @@
+import { DataV } from "./index";
 import { reactive } from "vue";
 import dayjs from "dayjs";
 export interface DataV {
@@ -15,4 +16,11 @@ export const setYear = (data: any): DataV => {
   reactiveData.day = dayjs().date();
   reactiveData.yearMonth = dayjs().year() + "";
   return reactiveData;
+};
+
+// 选择年份
+export const selectYear = (date: any, year: number) => {
+  date.month = 0;
+  date.year = year;
+  date.day = 1;
 };
