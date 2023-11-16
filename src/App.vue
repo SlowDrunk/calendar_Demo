@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import calendarTop from "./components/calendarTop.vue";
+import calendar from "./components/index.vue";
 </script>
 
 <template>
   <div class="mr-auto">
-    <calendarTop />
+    <calendar />
   </div>
 </template>
 
