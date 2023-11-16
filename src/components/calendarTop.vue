@@ -16,8 +16,16 @@ const Props = defineProps({
     </div>
     <div class="font-bold cursor-pointer" @click="yearDecrease(date)">&lt</div>
     <div class="flex flex-row">
-      <span @click="selectYear(date, 2022)">{{ date.year }}</span>
-      <span v-show="date.month > 0">/{{ date.month }}</span>
+      <span
+        class="cursor-pointer w-10 text-right hover:text-yellow-400"
+        @click="selectYear(date, 2022)"
+        >{{ date.year }}</span
+      >
+      <span
+        class="cursor-pointer w-10 hover:text-yellow-400"
+        v-show="date.month > 0"
+        >{{ date.month }}</span
+      >
     </div>
     <div class="font-bold cursor-pointer" @click="yearIncrease(date)">&gt</div>
     <div class="font-bold cursor-pointer" @click="yearIncrease(date, 10)">

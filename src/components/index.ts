@@ -1,4 +1,3 @@
-import { DataV } from "./index";
 import { reactive } from "vue";
 import dayjs from "dayjs";
 export interface DataV {

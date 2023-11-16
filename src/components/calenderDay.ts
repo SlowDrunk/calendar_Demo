@@ -13,7 +13,7 @@ export const getMonthDays = (year: number, month: number) => {
   }
   let endNum = 0;
   // 开始补全最后一天后的日期
-  while (lastDayOfMonth.day() !== 6) {
+  while (lastDayOfMonth.day() !== 12) {
     lastDayOfMonth = lastDayOfMonth.add(1, "day");
     endNum++;
   }
