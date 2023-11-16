@@ -14,13 +14,9 @@ console.log(Props);
     <div class="font-bold cursor-pointer" @click="yearDecrease(date, 10)">
       &lt&lt
     </div>
-    <div class="font-bold cursor-pointer" @click="yearDecrease(date)">
-      &lt
-    </div>
+    <div class="font-bold cursor-pointer" @click="yearDecrease(date)">&lt</div>
     <div class="sele">{{ date.year }}</div>
-    <div class="font-bold cursor-pointer" @click="yearIncrease(date)">
-      &gt
-    </div>
+    <div class="font-bold cursor-pointer" @click="yearIncrease(date)">&gt</div>
     <div class="font-bold cursor-pointer" @click="yearIncrease(date, 10)">
       &gt&gt
     </div>
