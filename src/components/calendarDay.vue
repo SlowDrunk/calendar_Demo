@@ -9,18 +9,20 @@ const Props = defineProps({
     },
     format: {
         type: String,
-        default: 'YYYY-MM-DD'
-    }
+        default: "YYYY-MM-DD",
+    },
 });
 // xxxx年x月有多少天
 const monthDays = computed(() => {
     return getMonthDays(Props.date.year, Props.date.month).days;
 });
 const currentMonthSection = computed(() => {
-    const startIndex = getMonthDays(Props.date.year, Props.date.month).fontNum
-    const endIndex = monthDays.value.length - getMonthDays(Props.date.year, Props.date.month).endNum
-    return [startIndex, endIndex]
-})
+    const startIndex = getMonthDays(Props.date.year, Props.date.month).fontNum;
+    const endIndex =
+        monthDays.value.length -
+        getMonthDays(Props.date.year, Props.date.month).endNum;
+    return [startIndex, endIndex];
+});
 
 // 周标题
 const weekTitles = () => {
@@ -56,12 +58,16 @@ const getCurrentDayStyle = (day: string, index: number) => {
 
 const selectDay = (item: string, index: number) => {
     if (index < currentMonthSection.value[0]) {
-        Props.date.month += 1
+        Props.date.month += 1;
     } else if (index >= currentMonthSection.value[1]) {
-        Props.date.month -= 1
+        Props.date.month -= 1;
     }
     Props.date.day = item;
-    console.log(dayjs(`${Props.date.year}-${Props.date.month}-${Props.date.day}`).format(Props.format))
+    console.log(
+        dayjs(
+            `${Props.date.year}-${Props.date.month}-${Props.date.day}`
+        ).format(Props.format)
+    );
 };
 </script>
 
@@ -73,9 +79,14 @@ const selectDay = (item: string, index: number) => {
             }}</span>
         </div>
         <div class="grid grid-cols-7">
-            <span class="w-10 h-10 hover:bg-gray-400 text-center leading-10 rounded-[50%] cursor-pointer"
-                v-for="(item, index) in monthDays" :style="getCurrentDayStyle(item, index)" :key="index"
-                @click="selectDay(item, index)">{{ item }}</span>
+            <span
+                class="w-10 h-10 hover:bg-gray-400 text-center leading-10 rounded-[50%] cursor-pointer"
+                v-for="(item, index) in monthDays"
+                :style="getCurrentDayStyle(item, index)"
+                :key="index"
+                @click="selectDay(item, index)"
+                >{{ item }}</span
+            >
         </div>
     </div>
 </template>
