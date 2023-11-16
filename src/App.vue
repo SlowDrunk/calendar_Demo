@@ -4,7 +4,7 @@ import calendar from "./components/index.vue";
 
 <template>
   <div class="mr-auto">
-    <calendar />
+    <calendar :format="'YYYY/MM/DD'" />
   </div>
 </template>
 
