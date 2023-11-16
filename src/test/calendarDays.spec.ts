@@ -1,10 +1,10 @@
-import { getMonthDays } from "../components/calenderDay";
+import { getMonthDays } from "../components/calendarDay";
 import { describe, test, expect } from "vitest";
 
 describe("日期选择相关", () => {
   test("当前月份计算", () => {
-    const days = getMonthDays(2023, 11);
-    expect(days).toEqual([
+    const result = getMonthDays(2023, 11);
+    expect(result.days).toEqual([
       "29",
       "30",
       "31",

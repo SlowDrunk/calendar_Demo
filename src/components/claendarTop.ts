@@ -5,8 +5,12 @@ export function yearDecrease(data: any, gap = 1) {
   data.year -= gap;
 }
 // 选择年份
-export const selectYear = (date: any, year: number) => {
+export const checkYear = (date: any) => {
+  date.type = "year";
   date.month = 0;
-  date.year = year;
-  date.day = 1;
+};
+// 选择月份
+export const checkMonth = (date: any) => {
+  date.type = "month";
+  date.month = 0;
 };

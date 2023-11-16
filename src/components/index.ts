@@ -1,13 +1,10 @@
-import { DataV } from "./index";
 import { reactive } from "vue";
 import dayjs from "dayjs";
 export interface DataV {
   year: number;
   month: number;
   day: number;
-  yearIncrease: () => void;
-  yearDecrease: () => void;
-  setDateMonth: () => void;
+  type:string
 }
 export const setYear = (data: any): DataV => {
   const reactiveData = reactive(data);
@@ -16,4 +13,21 @@ export const setYear = (data: any): DataV => {
   reactiveData.day = dayjs().date();
   reactiveData.yearMonth = dayjs().year() + "";
   return reactiveData;
+};
+export const formatMonth = (month: number) => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  return months[month - 1];
 };

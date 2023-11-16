@@ -10,7 +10,7 @@ const date = setYear({});
   <div class="">
     <calendarTop :date="date" />
     <calendarMonth :date="date" v-if="date.month === 0" />
-    <calendarDay :date="date" v-else />
+    <calendarDay :date="date"  v-else/>
   </div>
 </template>
 

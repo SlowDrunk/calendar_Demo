@@ -1,11 +1,10 @@
-import { setMonth } from "../components/calendarMonth.ts"
-import { setYear } from "../components/index.ts"
-import { describe, test, expect } from "vitest"
-
+import { setMonth } from "../components/calendarMonth.ts";
+import { setYear, formatMonth } from "../components/index.ts";
+import { describe, test, expect } from "vitest";
 describe("calendarMonth.ts", () => {
-    test("设置月份", () => {
-        const date = setYear({})
-        setMonth(date, 1)
-        expect(date.month).toBe(1)
-    })
-})
+  test("设置月份", () => {
+    const date = setYear({});
+    const result = formatMonth(setMonth(date, 1));
+    expect(result).toBe("Jan");
+  });
+});
