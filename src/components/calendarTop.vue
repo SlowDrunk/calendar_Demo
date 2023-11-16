@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { watch } from "vue";
 import { yearDecrease, yearIncrease } from "./claendarTop";
 const Props = defineProps({
   date: {
@@ -6,7 +7,12 @@ const Props = defineProps({
     default: () => ({}),
   },
 });
-console.log(Props);
+watch(
+  () => Props.date,
+  (newVal, oldVal) => {
+    console.log(newVal, oldVal);
+  }
+);
 </script>
 
 <template>
