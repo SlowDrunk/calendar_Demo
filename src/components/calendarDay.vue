@@ -60,7 +60,7 @@ const getCurrentDayStyle = (day: string, index: number) => {
     </div>
     <div class="grid grid-cols-7">
       <span
-        class="w-10 h-10 hover:bg-gray-400 text-center"
+        class="w-10 h-10 hover:bg-gray-400 text-center leading-10 rounded-[50%]"
         v-for="(item, index) in monthDays"
         :style="getCurrentDayStyle(item, index)"
         :key="index"
