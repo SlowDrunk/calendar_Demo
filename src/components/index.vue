@@ -9,8 +9,8 @@ const date = setYear({});
 <template>
   <div class="">
     <calendarTop :date="date" />
-    <calendarDay :date="date" />
-    <calendarMonth :date="date"/>  
+    <calendarMonth :date="date" v-if="date.month === 0" />
+    <calendarDay :date="date" v-else />
   </div>
 </template>
 

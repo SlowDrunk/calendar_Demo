@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import { watch } from "vue";
 import { yearDecrease, yearIncrease } from "./claendarTop";
+import { computed } from "vue";
 const Props = defineProps({
   date: {
     type: Object,
     default: () => ({}),
   },
 });
-watch(
-  () => Props.date,
-  (newVal, oldVal) => {
-    console.log(newVal, oldVal);
-  }
-);
+console.log(Props);
+const yearNMonth = computed(() => {
+  const month = Props.date.month;
+  const year = Props.date.year;
+  return month > 0 ? `${year}/${month}` : year;
+});
 </script>
 
 <template>
@@ -21,7 +21,10 @@ watch(
       &lt&lt
     </div>
     <div class="font-bold cursor-pointer" @click="yearDecrease(date)">&lt</div>
-    <div class="sele">{{ date.year }}</div>
+    <div class="flex flex-row">
+      <span>{{ date.year }}</span>
+      <span v-show="date.month > 0">/{{ date.month }}</span>
+    </div>
     <div class="font-bold cursor-pointer" @click="yearIncrease(date)">&gt</div>
     <div class="font-bold cursor-pointer" @click="yearIncrease(date, 10)">
       &gt&gt

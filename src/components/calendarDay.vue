@@ -31,7 +31,10 @@ const weekTit = weekTitles();
     <div class="grid grid-cols-7">
       <span
         class="w-10 h-10 hover:bg-gray-400 text-center"
-        v-for="(item,index) in monthDays"
+        v-for="(item, index) in monthDays"
+        :style="{
+          background: Props.date.day == item ? '#fff000' : 'transparent',
+        }"
         :key="index"
         >{{ item }}</span
       >
