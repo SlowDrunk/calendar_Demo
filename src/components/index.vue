@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import calendarTop from "./calendarTop.vue";
+import calendarMonth from "./calendarMonth.vue";
+import calendarDay from "./calendarDay.vue";
 import { setYear } from "./index";
 const date = setYear({});
 </script>
@@ -7,6 +9,8 @@ const date = setYear({});
 <template>
   <div class="">
     <calendarTop :date="date" />
+    <calendarMonth :date="date"/>  
+    <calendarDay :date="date"/>
   </div>
 </template>
 
