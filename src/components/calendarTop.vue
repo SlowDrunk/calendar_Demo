@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { yearDecrease, yearIncrease } from "./claendarTop";
-import { selectYear } from "./index";
+import { yearDecrease, yearIncrease, selectYear } from "./claendarTop";
 const Props = defineProps({
   date: {
     type: Object,

@@ -17,10 +17,3 @@ export const setYear = (data: any): DataV => {
   reactiveData.yearMonth = dayjs().year() + "";
   return reactiveData;
 };
-
-// 选择年份
-export const selectYear = (date: any, year: number) => {
-  date.month = 0;
-  date.year = year;
-  date.day = 1;
-};
