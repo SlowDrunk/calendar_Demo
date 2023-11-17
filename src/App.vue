@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import calendar from "./components/index.vue";
+import calendarTest from "./calendar/index.vue";
 </script>
 
 <template>
     <div class="mr-auto">
-        <calendar :format="'YYYY/MM/DD'" />
+        <!-- <calendar :format="'YYYY/MM/DD'" /> -->
+        <calendarTest :format="'YYYY/MM/DD'" />
     </div>
 </template>
 
