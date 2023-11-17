@@ -16,7 +16,7 @@ const props = defineProps({
     <div class="">
         <calendarTop />
         <calendarMonth v-if="dateData.type !== ''" />
-        <calendarDay v-else />
+        <calendarDay v-else :format="props.format"/>
     </div>
 </template>
 
