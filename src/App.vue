@@ -5,8 +5,8 @@ const router = useRouter();
 </script>
 
 <template>
-    <div class="flex flex-row justify-betwee gap-40 h-[800px] w-[1038px]">
-        <div class="flex flex-col gap-6 w-28">
+    <div class="flex flex-row justify-betwee gap-40">
+        <div class="w-20 flex flex-col gap-6">
             <button
                 @click="() => router.push('/')"
                 class="w-[100%] bg-slate-500"

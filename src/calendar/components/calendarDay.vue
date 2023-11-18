@@ -54,7 +54,7 @@ const getCurrentDayStyle = (day: string, index: number) => {
                 v-for="(item, index) in monthDays"
                 :class="getCurrentDayStyle(item, index)"
                 :key="index"
-                @click="setDay(item, index, Props.format)"
+                @click="setDay(Number(item), index, Props.format)"
                 >{{ item }}</span
             >
         </div>

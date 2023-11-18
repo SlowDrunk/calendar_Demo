@@ -41,9 +41,9 @@ export function useDate() {
     // 设置具体某一天
     const setDay = (day: number, index: number, formatStr: string) => {
         if (index < currentMonthSection.value[0]) {
-            dateData.month += 1;
-        } else if (index >= currentMonthSection.value[1]) {
             dateData.month -= 1;
+        } else if (index >= currentMonthSection.value[1]) {
+            dateData.month += 1;
         }
         dateData.day = day;
         const result = dayjs(
