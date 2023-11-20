@@ -2,178 +2,29 @@
 import type { FromItem } from "./comon/index";
 import { ref } from "vue";
 import DynamicFrom from "./components/DynamicFrom.vue";
-const fromOptions = ref<FromItem[]>([
-    {
-        label: "姓名",
-        prop: "username",
-        status: 1,
-        class: "col-span-2",
-        component: {
-            comName: "el-input",
-            type: "text",
-            placeholder: "请输入姓名",
-        },
-    },
-    {
-        label: "电话",
-        prop: "phoneNumber",
-        status: 1,
-        component: {
-            comName: "el-input",
-            type: "text",
-            clearable: true,
-            placeholder: "请输入电话",
-        },
-    },
-    {
-        label: "邮箱",
-        prop: "email",
-        status: 1,
-        component: {
-            comName: "el-input",
-            type: "text",
-            placeholder: "请输入邮箱",
-        },
-    },
-    {
-        label: "现居城市",
-        prop: "city",
-        status: 1,
-        component: {
-            comName: "el-input",
-            type: "text",
-            placeholder: "请输入现居城市",
-        },
-    },
-    {
-        label: "个人网站",
-        prop: "website",
-        status: 0,
-        component: {
-            comName: "el-input",
-            type: "text",
-            placeholder: "请输入个人网站",
-        },
-    },
-    {
-        label: "微信",
-        prop: "wechat",
-        status: 0,
-        component: {
-            comName: "el-input",
-            type: "text",
-            placeholder: "请输入个人微信",
-        },
-    },
-    {
-        label: "年龄或生日",
-        prop: "birth",
-        status: 1,
-        component: {
-            comName: "el-date-picker",
-            format: "YYYY/MM/DD",
-            valueFormat: "YYYY/MM/DD",
-        },
-    },
-    {
-        label: "当前状态",
-        prop: "currentStatus",
-        status: 1,
-        component: {
-            comName: "el-select",
-            multiple: true,
-            placeholder: "请选择当前状态",
-            options: [
-                { label: "离职", value: "离职" },
-                { label: "在职", value: "在职" },
-                { label: "待入职", value: "待入职" },
-                { label: "在校生", value: "在校生" },
-                { label: "应届生", value: "应届生" },
-            ],
-        },
-    },
-    {
-        label: "意向城市",
-        prop: "wantCity",
-        status: 1,
-        component: {
-            comName: "el-input",
-            type: "text",
-            placeholder: "请输入个人意向城市",
-        },
-    },
-    {
-        label: "性别",
-        prop: "sex",
-        status: 0,
-        component: {
-            comName: "el-radio-group",
-            options: [
-                { label: "男", value: "男" },
-                { label: "女", value: "女" },
-            ],
-        },
-    },
-    {
-        label: "身高",
-        prop: "height",
-        status: 0,
-        component: {
-            comName: "el-input",
-            type: "text",
-            placeholder: "如：160cm",
-        },
-    },
-    {
-        label: "民族",
-        prop: "nation",
-        status: 0,
-        component: {
-            comName: "el-input",
-            type: "text",
-            placeholder: "如：汉族",
-        },
-    },
-    {
-        label: "籍贯",
-        prop: "location",
-        status: 0,
-        component: {
-            comName: "el-input",
-            type: "text",
-            placeholder: "请输入籍贯",
-        },
-    },
-    {
-        label: "婚姻状况",
-        prop: "marrayed",
-        status: 0,
-        component: {
-            comName: "el-radio-group",
-            options: [
-                { label: "已婚", value: "已婚" },
-                { label: "未婚", value: "未婚" },
-            ],
-        },
-    },
-    {
-        label: "政治面貌",
-        prop: "politicalStatus",
-        status: 0,
-        component: {
-            comName: "el-select",
-            options: [
-                { label: "党员", value: "党员" },
-                { label: "预备党员", value: "预备党员" },
-                { label: "群众", value: "群众" },
-            ],
-        },
-    },
-]);
+import { baseOptions, createFormData, infoGroup } from "./formOptions";
 
-const fromRules = {
+// 判断是否显示管道分隔符
+const generateAttribute = (...values: any) =>
+    values.filter(Boolean).join(" | ");
+// 设置添加状态的回调
+const setFromOptions = (data: any) => {
+    const foundElement = fromOptions.value.find(
+        (ele) => ele.prop === data.prop
+    );
+
+    if (foundElement) {
+        Object.assign(foundElement, data);
+    } else {
+        fromOptions.value.push(data);
+    }
+};
+// 表单配置
+const fromOptions = ref<FromItem[]>(baseOptions);
+// 校验规则
+const fromRules = ref({
     phoneNumber: [
-        { required: false, message: "请输入电话号码", trigger: "blur" },
+        { required: true, message: "请输入电话号码", trigger: "blur" },
         {
             pattern: /^1[3-9]\d{9}$/, // 以1开头，后面跟3-9的数字，共11位
             message: "请输入正确的电话号码",
@@ -181,7 +32,7 @@ const fromRules = {
         },
     ],
     email: [
-        { required: false, message: "请输入邮箱", trigger: "blur" },
+        { required: true, message: "请输入邮箱", trigger: "blur" },
         {
             type: "email",
             message: "请输入正确的邮箱格式",
@@ -196,43 +47,112 @@ const fromRules = {
             trigger: "blur",
         },
     ],
-};
-const testObj = ref({
-    username: "张三",
-    phoneNumber: "13289338674",
-    email: "",
-    city: "",
-    website: "",
-    wechat: "",
-    birth: "",
-    currentStatus: [],
-    wantCity: "",
 });
-const setFromOptions = (data: any) => {
-    const index = fromOptions.value.findIndex((ele) => ele.prop == data.prop);
-    fromOptions.value[index] = data;
+const optionFlag = ref<string>("baseInfo");
+// 切换表单项
+const handleFromOptions = (flag: string) => {
+    optionFlag.value = flag;
 };
+const formData = ref<any>(createFormData(baseOptions));
 </script>
 
 <template>
+    <!-- 动态表单 -->
     <div class="mr-auto w-[579px] border p-3">
         <DynamicFrom
-            v-model="testObj"
+            v-model="formData"
             ref="FromRef"
             @upDataFromOptions="setFromOptions"
             :fromOptions="fromOptions"
             :rules="fromRules"
+            :infoGroup="optionFlag"
         />
     </div>
+    <!-- 信息展示 -->
     <div class="text-left flex flex-col gap-8 w-[600px] border p-3.5">
-        <div>姓名：{{ testObj.username }}</div>
-        <div>电话：{{ testObj.phoneNumber }}</div>
-        <div>邮箱：{{ testObj.email }}</div>
-        <div>个人网站：{{ testObj.website }}</div>
-        <div>微信：{{ testObj.wechat }}</div>
-        <div>生日：{{ testObj.birth }}</div>
-        <div>当前状态：{{ testObj.currentStatus.join("、") }}</div>
-        <div>意向城市：{{ testObj.wantCity }}</div>
+        <!-- 基本信息 -->
+        <div
+            class="flex flex-col items-center gap-2"
+            @click="handleFromOptions(infoGroup.baseInfo)"
+        >
+            <div class="name text-2xl font-bold">
+                {{ formData.username ? formData.username : "姓名" }}
+            </div>
+            <div v-if="formData.phoneNumber || formData.email">
+                {{ generateAttribute(formData.phoneNumber, formData.email) }}
+            </div>
+            <div>
+                {{
+                    generateAttribute(
+                        formData.birth,
+                        formData.sex,
+                        formData.city,
+                        formData.location,
+                        formData.nation,
+                        formData.height,
+                        formData.city,
+                        formData.politicalStatus,
+                        formData.marrayed
+                    )
+                }}
+            </div>
+            <div>
+                {{ generateAttribute(formData.wechat, formData.website) }}
+            </div>
+            <div v-if="formData.currentStatus || formData.wantCity">
+                {{
+                    generateAttribute(formData.currentStatus, formData.wantCity)
+                }}
+            </div>
+        </div>
+        <!-- 教育信息 -->
+        <div
+            class="flex flex-col items-center gap-2"
+            @click="handleFromOptions(infoGroup.educationInfo)"
+        >
+            <h1>教育经历</h1>
+            <!-- 学校名称 -->
+            <div
+                v-if="formData.schoolName"
+                class="flex flex-row items-start justify-start font-bold"
+            >
+                <span>{{ formData.schoolName }}</span>
+                <div class="tags">
+                    <el-tag
+                        v-for="item in formData.schoolTag"
+                        :key="item"
+                        class="ml-2"
+                        >{{ item }}</el-tag
+                    >
+                </div>
+            </div>
+            <!-- 学校信息 -->
+            <div
+                v-if="
+                    formData.profession ||
+                    formData.level ||
+                    formData.college ||
+                    formData.schoolCity
+                "
+                class="w-[100%] flex flex-row justify-between"
+            >
+                <span>
+                    {{
+                        `${formData.profession} ${formData.level} ${formData.college}`
+                    }}</span
+                >
+                <span>{{ formData.schoolCity }}</span>
+            </div>
+            <!-- 校园经历 -->
+            <div></div>
+        </div>
+        <!-- 项目信息 -->
+        <div
+            class="flex flex-col items-center gap-2"
+            @click="handleFromOptions(infoGroup.projectInfo)"
+        >
+            <h1>开源作品及项目</h1>
+        </div>
     </div>
 </template>
 

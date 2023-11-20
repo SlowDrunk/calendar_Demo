@@ -32,7 +32,8 @@ type FromItemCommon = {
     label: string;
     prop: string;
     status?: number;
-    class?:string;
+    class?: string;
+    infoGroup: string;
     component: ComponentType;
 };
 

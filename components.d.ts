@@ -7,6 +7,10 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BoldIcon: typeof import('./src/components/bold-icon.vue')['default']
+    BulletListIcon: typeof import('./src/components/bulletList-icon.vue')['default']
+    ClearMarksIcon: typeof import('./src/components/clearMarks-icon.vue')['default']
+    Components: typeof import('./src/components/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElForm: typeof import('element-plus/es')['ElForm']
@@ -14,7 +18,16 @@ declare module 'vue' {
     ElFrom: typeof import('element-plus/es')['ElFrom']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElRadio: typeof import('element-plus/es')['ElRadio']
+    ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
+    ElTag: typeof import('element-plus/es')['ElTag']
+    HrefIcon: typeof import('./src/components/href-icon.vue')['default']
+    ItalicIcon: typeof import('./src/components/italic-icon.vue')['default']
+    LiftListItemIcon: typeof import('./src/components/liftListItem-icon.vue')['default']
+    OrderListIcon: typeof import('./src/components/orderList-icon.vue')['default']
+    RedoIcon: typeof import('./src/components/redo-icon.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SinkListItemIcon: typeof import('./src/components/sinkListItem-icon.vue')['default']
+    UndoIcon: typeof import('./src/components/undo-icon.vue')['default']
   }
 }
