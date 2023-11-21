@@ -54,6 +54,29 @@ const handleFromOptions = (flag: string) => {
     optionFlag.value = flag;
 };
 const formData = ref<any>(createFormData(baseOptions));
+const educationEditorContent = ref<string>("");
+const projectEditorContent = ref<string>("");
+const setEditorContent = (data: string) => {
+    if (optionFlag.value === infoGroup.educationInfo) {
+        educationEditorContent.value = data;
+    } else {
+        projectEditorContent.value = data;
+    }
+};
+const testArr = ref([
+    {
+        id: 1,
+        schoolName: "",
+        level: "",
+        major: "",
+    },
+    {
+        id: 2,
+        schoolName: "",
+        level: "",
+        major: "",
+    },
+]);
 </script>
 
 <template>
@@ -63,6 +86,7 @@ const formData = ref<any>(createFormData(baseOptions));
             v-model="formData"
             ref="FromRef"
             @upDataFromOptions="setFromOptions"
+            @setEditorContent="setEditorContent"
             :fromOptions="fromOptions"
             :rules="fromRules"
             :infoGroup="optionFlag"
@@ -86,7 +110,6 @@ const formData = ref<any>(createFormData(baseOptions));
                     generateAttribute(
                         formData.birth,
                         formData.sex,
-                        formData.city,
                         formData.location,
                         formData.nation,
                         formData.height,
@@ -107,10 +130,16 @@ const formData = ref<any>(createFormData(baseOptions));
         </div>
         <!-- 教育信息 -->
         <div
-            class="flex flex-col items-center gap-2"
+            class="flex flex-col items-start gap-2"
             @click="handleFromOptions(infoGroup.educationInfo)"
+            v-for="item in testArr" :key="item.id"
         >
-            <h1>教育经历</h1>
+            <div class="flex flex-row gap-3">
+                <div class="flex-1 w-20">教育经历</div>
+                <button class="w-10 bg-slate-400">添加</button>
+                <button class="w-10 bg-slate-400">删除</button>
+            </div>
+
             <!-- 学校名称 -->
             <div
                 v-if="formData.schoolName"
@@ -144,14 +173,19 @@ const formData = ref<any>(createFormData(baseOptions));
                 <span>{{ formData.schoolCity }}</span>
             </div>
             <!-- 校园经历 -->
-            <div></div>
+            <div v-html="educationEditorContent"></div>
         </div>
         <!-- 项目信息 -->
         <div
-            class="flex flex-col items-center gap-2"
+            class="flex flex-col items-start gap-2"
             @click="handleFromOptions(infoGroup.projectInfo)"
         >
-            <h1>开源作品及项目</h1>
+            <div class="flex flex-row gap-3">
+                <div class="flex-1 w-40">开源作品及项目</div>
+                <button class="w-10 bg-slate-400">添加</button>
+                <button class="w-10 bg-slate-400">删除</button>
+            </div>
+            <div v-html="projectEditorContent"></div>
         </div>
     </div>
 </template>

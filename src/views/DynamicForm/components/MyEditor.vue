@@ -11,7 +11,7 @@
                 :defaultConfig="editorConfig"
                 :mode="mode"
                 v-model="valueHtml"
-                style="height: 160px; overflow-y: hidden; text-align: left"
+                style="height: 300px; overflow-y: hidden; text-align: left"
                 @onCreated="handleCreated"
                 @onChange="handleChange"
                 @onDestroyed="handleDestroyed"
@@ -20,13 +20,6 @@
                 @customAlert="customAlert"
                 @customPaste="customPaste"
             />
-        </div>
-        <div style="margin-top: 10px">
-            <textarea
-                v-model="valueHtml"
-                readonly
-                style="width: 100%; height: 200px; outline: none"
-            ></textarea>
         </div>
     </div>
 </template>
@@ -38,10 +31,15 @@ import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 
 export default {
     components: { Editor, Toolbar },
-    setup() {
+    props: {
+        modelValue: {
+            type: String,
+            default: "",
+        },
+    },
+    setup(props, { emit }) {
         // 编辑器实例，必须用 shallowRef，重要！
         const editorRef = shallowRef();
-        console.log(Editor);
         // 内容 HTML
         const valueHtml = ref("");
 
@@ -81,6 +79,9 @@ export default {
             "deleteImage",
             "divider",
             "emotion",
+            "group-more-style",
+            "group-image",
+            "blockquote",
         ];
         const editorConfig = { placeholder: "请输入内容..." };
 
@@ -97,7 +98,7 @@ export default {
             editorRef.value = editor; // 记录 editor 实例，重要！
         };
         const handleChange = (editor) => {
-            console.log("change:", editor.getHtml());
+            emit("update:modelValue", editor.getHtml());
         };
         const handleDestroyed = (editor) => {
             console.log("destroyed", editor);
@@ -121,14 +122,12 @@ export default {
         const insertText = () => {
             const editor = editorRef.value;
             if (editor == null) return;
-
             editor.insertText("hello world");
         };
 
         const printHtml = () => {
             const editor = editorRef.value;
             if (editor == null) return;
-            console.log(editor.getHtml());
         };
 
         const disable = () => {

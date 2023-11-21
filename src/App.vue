@@ -19,6 +19,12 @@ const router = useRouter();
             >
                 动态表单
             </button>
+            <button
+                @click="() => router.push('/simpleResume')"
+                class="w-[100%] bg-slate-500"
+            >
+                简单简历
+            </button>
         </div>
         <RouterView />
     </div>

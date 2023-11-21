@@ -1,3 +1,4 @@
+import { infoGroup } from "./../../DynamicForm/formOptions";
 import type {
     FormItemProps,
     InputProps,
@@ -33,6 +34,7 @@ type FromItemCommon = {
     prop: string;
     status?: number;
     class?: string;
+    infoGroup: string;
     component: ComponentType;
 };
 
@@ -62,4 +64,35 @@ type FormConfig = {
     disable?: boolean;
     scrollToError?: boolean;
     scrollIntoViewOptions?: object | boolean;
+};
+
+export type baseInfo = {
+    roleName: string;
+    name: string;
+    phoneNumber: string;
+    birth: string;
+    jobCity: string;
+    email: string;
+    wechat: string;
+};
+
+export type JobExprices = {
+    companyName: string;
+    roleName: string;
+    jobCity: string;
+    startTime:string;
+    endTime:string;
+    jobDesc?: string;
+};
+
+export type EducationExprices = {
+    schoolName: "";
+    schoolTag: string[];
+    profession: string;
+    level: string;
+    educationSystem: string;
+    college: string;
+    schoolCity: string;
+    startTime: string;
+    endTime: string;
 };

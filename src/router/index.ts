@@ -13,6 +13,11 @@ const router = createRouter({
             name: "dynamicFrom",
             component: () => import("@/views/DynamicForm/index.vue"),
         },
+        {
+            path: "/simpleResume",
+            name: "simpleResume",
+            component: () => import("@/views/SimpleResule/index.vue"),
+        },
     ],
 });
 

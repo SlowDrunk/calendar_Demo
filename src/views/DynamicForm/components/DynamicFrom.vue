@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref, watch } from "vue";
 import type { FromItem } from "../comon/index";
 import { useVModel } from "@vueuse/core";
 import MyEditor from "../components/MyEditor.vue";
@@ -17,15 +18,29 @@ const Props = withDefaults(defineProps<IProps>(), {
     infoGroup: () => "baseInfo",
 });
 
-const emit = defineEmits(["update:modelValue", "upDataFromOptions"]);
+const emit = defineEmits([
+    "update:modelValue",
+    "upDataFromOptions",
+    "setEditorContent",
+]);
 
 const formData = useVModel(Props, "modelValue", emit);
 
-//添加状态
+// 修改表单项状态
 const updateCom = (item: FromItem | any) => {
     item.status = 1;
     emit("upDataFromOptions", item);
 };
+// 富文本内容
+const editorContent = ref("");
+watch(
+    () => editorContent.value,
+    (value) => {
+        if (value) {
+            emit("setEditorContent", value);
+        }
+    }
+);
 </script>
 
 <template>
@@ -112,7 +127,7 @@ const updateCom = (item: FromItem | any) => {
                 Props.infoGroup === 'projectInfo'
             "
         >
-            <MyEditor />
+            <MyEditor v-model="editorContent" />
         </div>
     </div>
 </template>
