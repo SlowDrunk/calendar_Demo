@@ -4,7 +4,6 @@ import type { JobExprices, FromItem } from "../common";
 import { infoGroup } from "../fromOptions";
 import { useVModel } from "@vueuse/core";
 import MyEditor from "../../DynamicForm/components/MyEditor.vue";
-import { c } from "vitest/dist/reporters-5f784f42.js";
 import { useFromInfo } from "../hooks";
 const { deleteExprice } = useFromInfo();
 interface IProps {
