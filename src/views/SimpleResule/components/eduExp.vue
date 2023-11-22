@@ -2,17 +2,16 @@
 import DynamicFrom from "./DynamicFrom.vue";
 import { educationOption, infoGroup } from "../fromOptions";
 import { useFromInfo } from "../hooks";
+import draggable from "vuedraggable";
 
 const { addExprice } = useFromInfo();
 
 interface IProps {
     educationInfos: any[];
 }
-
 const Props = withDefaults(defineProps<IProps>(), {
     educationInfos: () => [],
 });
-console.log(Props);
 const emit = defineEmits(["addExprice", "deleteExprice"]);
 </script>
 
@@ -20,13 +19,23 @@ const emit = defineEmits(["addExprice", "deleteExprice"]);
     <div class="">
         <div>
             <h1>教育经历</h1>
-            <div v-for="(item, index) in Props.educationInfos" :key="index">
-                <DynamicFrom
-                    :infoGroup="infoGroup.educationInfo"
-                    :formOptions="educationOption"
-                    v-model="Props.educationInfos[index]"
-                />
-            </div>
+            <draggable
+                group="site"
+                animation="300"
+                :list="educationInfos"
+                item-key="name"
+                class="flex flex-col gap-4"
+                ghost-class="ghost"
+                handle=".mover"
+            >
+                <template #item="{ element, index }">
+                    <DynamicFrom
+                        :infoGroup="infoGroup.educationInfo"
+                        :formOptions="educationOption"
+                        v-model="educationInfos[index]"
+                    />
+                </template>
+            </draggable>
             <el-button @click="addExprice(infoGroup.educationInfo)"
                 >添加新的经历</el-button
             >

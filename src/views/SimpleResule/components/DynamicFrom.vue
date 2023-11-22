@@ -48,9 +48,11 @@ const deleteItem = () => {
             <div
                 class="w-[25px] h-[100%] flex items-center justify-center mr-2"
             >
-                <span
-                    class="w-[25px] h-[25px] bg-slate-400 cursor-pointer"
-                ></span>
+                <span class="w-[25px] h-[25px] cursor-pointer mover">
+                    <img
+                        src="https://easycv.cn/assets/drag-ff737dde.svg"
+                        alt=""
+                /></span>
             </div>
             <div class="flex flex-col h-[100%] justify-between">
                 <div class="font-bold">{{ renderDefaultTitle }}</div>
@@ -64,7 +66,7 @@ const deleteItem = () => {
                 <el-button type="danger" @click="deleteItem">删除</el-button>
             </div>
         </div>
-        <div v-if="isShowFrom">
+        <div v-show="isShowFrom">
             <!-- 表单 -->
             <div class="">
                 <el-form :model="formData" label-width="120px">
