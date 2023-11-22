@@ -1,17 +1,10 @@
 <script lang="ts" setup>
 import DynamicFrom from "./DynamicFrom.vue";
-import type { JobExprices } from "../common";
 import { JobFormOption, infoGroup } from "../fromOptions";
 import { useFromInfo, jobExprices } from "../hooks";
 import draggable from "vuedraggable";
 
 const { addExprice } = useFromInfo();
-interface IProps {
-    jobExprices: JobExprices[];
-}
-const Props = withDefaults(defineProps<IProps>(), {
-    jobExprices: () => [],
-});
 
 </script>
 
@@ -35,8 +28,7 @@ const Props = withDefaults(defineProps<IProps>(), {
                 />
             </template>
         </draggable>
-        <el-button @click="addExprice(infoGroup.projectInfo)"
-            >添加新的经历</el-button
+        <el-button @click="addExprice(infoGroup.projectInfo)">添加新的经历</el-button
         >
     </div>
 </template>

@@ -1,13 +1,16 @@
-import { ref } from "vue"
-import { FromItem } from "./common/index"
+import { ref } from "vue";
+import { FromItem } from "./common/index";
 export enum infoGroup {
     baseInfo = "baseInfo",
     educationInfo = "educationInfo",
     projectInfo = "projectInfo",
 }
-
+type baseInfoOptionType = {
+    personInfo: FromItem[];
+    jobHunting: FromItem[];
+};
 // 基本信息表单配置
-export const baseInfoOption: FromItem[] = ref({
+export const baseInfoOption = ref<baseInfoOptionType>({
     personInfo: [
         {
             label: "姓名",
@@ -111,7 +114,7 @@ export const baseInfoOption: FromItem[] = ref({
             },
         },
     ],
-})
+});
 // 工作经历表单配置
 export const JobFormOption: FromItem[] = [
     {
@@ -172,7 +175,7 @@ export const JobFormOption: FromItem[] = [
             valueFormat: "YYYY-MM",
         },
     },
-]
+];
 
 // 项目经历表单配置
 export const educationOption: FromItem[] = [
@@ -270,19 +273,25 @@ export const educationOption: FromItem[] = [
         },
     },
     {
-        label: "就读时间",
-        prop: "ecducationTimeRange",
-        infoGroup: infoGroup.educationInfo,
-        status: 1,
-        // class: "col-span-2",
+        label: "开始时间",
+        prop: "startTime",
+        infoGroup: infoGroup.projectInfo,
         component: {
             comName: "el-date-picker",
-            type: "datetimerange",
-            startPlaceholder: "开始日期",
-            endPlaceholder: "结束日期",
+            placeholder: "开始时间",
             format: "YYYY-MM",
             valueFormat: "YYYY-MM",
-            rangeSeparator: "至",
         },
     },
-]
+    {
+        label: "结束时间",
+        prop: "endTime",
+        infoGroup: infoGroup.projectInfo,
+        component: {
+            comName: "el-date-picker",
+            placeholder: "开始时间",
+            format: "YYYY-MM",
+            valueFormat: "YYYY-MM",
+        },
+    },
+];

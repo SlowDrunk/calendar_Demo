@@ -80,9 +80,10 @@ export type JobExprices = {
     companyName: string;
     roleName: string;
     jobCity: string;
-    startTime:string;
-    endTime:string;
+    startTime: string;
+    endTime: string;
     jobDesc?: string;
+    showForm: boolean;
 };
 
 export type EducationExprices = {
@@ -95,10 +96,11 @@ export type EducationExprices = {
     schoolCity: string;
     startTime: string;
     endTime: string;
+    showForm: boolean;
 };
 
 export interface ShowOptionMap {
     [infoGroup.baseInfo]: ShowOption;
     [infoGroup.projectInfo]: ShowOption;
     [infoGroup.educationInfo]: ShowOption;
-  }
+}

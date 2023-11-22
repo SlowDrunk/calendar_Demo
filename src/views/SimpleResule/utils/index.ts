@@ -2,12 +2,11 @@ import { FromItem } from "../common/index";
 
 // 根据表单配置生成初始对象
 export function createFormData(OptionsInfo: FromItem[]) {
-    const formData = {};
+    const formData = {showForm:false};
     OptionsInfo.forEach((item) => {
         // @ts-ignore
         const { prop, component } = item;
         let defaultValue;
-
         // 根据组件类型设置默认值
         switch (component.comName) {
             case "el-input":

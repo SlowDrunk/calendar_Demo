@@ -10,18 +10,31 @@ export const jobExprices = ref<JobExprices[]>([]);
 export const educationInfos = ref([]);
 
 export function useFromInfo() {
+    // 关闭其他选项表单确保只有一个展开项
+    const closeOtherForm = (infoArray: any[]) => {
+        infoArray.forEach((item: any) => {
+            item.showForm = false;
+        });
+    };
     // 添加经历
     const addExprice = (flag: string) => {
-        let defaultInfo = {};
+        let defaultInfo: any = {};
+        jobExprices.value.forEach((item: any) => {
+            item.showForm = false;
+        });
         if (flag === infoGroup.educationInfo) {
+            closeOtherForm(educationInfos.value);
             defaultInfo = createFormData(educationOption);
             // @ts-ignore
             educationInfos.value.push(defaultInfo);
         } else if (flag === infoGroup.projectInfo) {
+            closeOtherForm(jobExprices.value);
             defaultInfo = createFormData(JobFormOption);
+
             // @ts-ignore
             jobExprices.value.push(defaultInfo);
         }
+        defaultInfo.showForm = true;
     };
 
     // 删除经历
@@ -42,5 +55,6 @@ export function useFromInfo() {
     return {
         deleteExprice,
         addExprice,
+        closeOtherForm,
     };
 }

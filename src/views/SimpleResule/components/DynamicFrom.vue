@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue";
-import type { JobExprices, FromItem } from "../common";
+import { computed } from "vue";
+import type { FromItem } from "../common";
 import { infoGroup } from "../fromOptions";
 import { useVModel } from "@vueuse/core";
-import MyEditor from "../../DynamicForm/components/MyEditor.vue";
-import { useFromInfo } from "../hooks";
+import MyEditor from "@/components/MyEditor.vue";
+import { useFromInfo, educationInfos, jobExprices } from "../hooks";
+const { closeOtherForm } = useFromInfo();
 const { deleteExprice } = useFromInfo();
+
 interface IProps {
     modelValue: any;
     formOptions: FromItem[];
@@ -14,25 +16,38 @@ interface IProps {
 const Props = withDefaults(defineProps<IProps>(), {
     modelValue: () => ({}),
     formOptions: () => [],
-    infoGroup: " ",
+    infoGroup: "",
 });
 const emit = defineEmits(["update:modelValue"]);
 const formData = useVModel(Props, "modelValue", emit);
 // 编辑&删除
-const isShowFrom = ref(false);
 const showForm = () => {
-    isShowFrom.value = true;
+    if (Props.infoGroup === infoGroup.educationInfo) {
+        closeOtherForm(educationInfos.value);
+    } else if (Props.infoGroup === infoGroup.projectInfo) {
+        closeOtherForm(jobExprices.value);
+    }
+    formData.value.showForm = true;
 };
 const hideForm = () => {
-    isShowFrom.value = false;
+    formData.value.showForm = false;
 };
 // 根据分组计算头部数据
 const renderDefaultTitle = computed(() => {
+    // @ts-ignore
     switch (Props.formOptions[0].infoGroup) {
         case infoGroup.educationInfo:
-            return `${formData.value.schoolName || ""} ${formData.value.level || ""} ${formData.value.schoolTag || ""} ${formData.value.startTime || ""}-${formData.value.endTime || ""}`;
+            return `${formData.value.schoolName || ""} ${
+                formData.value.level || ""
+            } ${formData.value.schoolTag || ""} ${
+                formData.value.startTime || ""
+            }-${formData.value.endTime || ""}`;
         case infoGroup.projectInfo:
-            return `${formData.value.companyName || ""} ${formData.value.roleName || ""} ${formData.value.startTime || ""}-${formData.value.endTime || ""}`;
+            return `${formData.value.companyName || ""} ${
+                formData.value.roleName || ""
+            } ${formData.value.startTime || ""}-${
+                formData.value.endTime || ""
+            }`;
     }
 });
 // 删除数据
@@ -44,7 +59,10 @@ const deleteItem = () => {
 <template>
     <div class="border p-3">
         <!-- 默认展示部分 -->
-        <div class="flex flex-row items-center p-[16px]" v-if="!isShowFrom">
+        <div
+            class="flex flex-row items-center p-[16px]"
+            v-if="!formData.showForm"
+        >
             <div
                 class="w-[25px] h-[100%] flex items-center justify-center mr-2"
             >
@@ -66,7 +84,7 @@ const deleteItem = () => {
                 <el-button type="danger" @click="deleteItem">删除</el-button>
             </div>
         </div>
-        <div v-show="isShowFrom">
+        <div v-show="formData.showForm">
             <!-- 表单 -->
             <div class="">
                 <el-form :model="formData" label-width="120px">

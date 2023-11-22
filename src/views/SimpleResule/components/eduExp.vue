@@ -1,18 +1,10 @@
 <script lang="ts" setup>
 import DynamicFrom from "./DynamicFrom.vue";
 import { educationOption, infoGroup } from "../fromOptions";
-import { useFromInfo } from "../hooks";
+import { useFromInfo, educationInfos } from "../hooks";
 import draggable from "vuedraggable";
 
 const { addExprice } = useFromInfo();
-
-interface IProps {
-    educationInfos: any[];
-}
-const Props = withDefaults(defineProps<IProps>(), {
-    educationInfos: () => [],
-});
-const emit = defineEmits(["addExprice", "deleteExprice"]);
 </script>
 
 <template>
