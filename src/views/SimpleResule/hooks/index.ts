@@ -7,7 +7,7 @@ export const baseInfo = ref<baseInfoType>({});
 // 工作经历
 export const jobExprices = ref<JobExprices[]>([]);
 // 教育信息
-export const educationInfos = ref([]);
+export const educationInfos = ref<any>([]);
 
 export function useFromInfo() {
     // 关闭其他选项表单确保只有一个展开项
@@ -58,3 +58,41 @@ export function useFromInfo() {
         closeOtherForm,
     };
 }
+
+export const moduleList = ref([
+    {
+        name: '个人信息',
+        id: 1,
+        group: infoGroup.baseInfo
+    },
+    {
+        name: '教育消息',
+        id: 2,
+        group: infoGroup.educationInfo
+    },
+    {
+        name: '实践经历',
+        id: 3,
+        group: infoGroup.projectInfo
+    },
+    {
+        name: '项目经历',
+        id: 4,
+    },
+    {
+        name: '专业技能',
+        id: 5,
+    },
+    {
+        name: '自定义模块',
+        id: 6,
+    },
+    {
+        name: '预览设计',
+        id: 7,
+    },
+    {
+        name: '完成简历',
+        id: 8,
+    }
+])

@@ -6,6 +6,7 @@ import draggable from "vuedraggable";
 
 const { addExprice } = useFromInfo();
 
+
 </script>
 
 <template>

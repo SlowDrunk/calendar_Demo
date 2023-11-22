@@ -8,6 +8,7 @@ import JobExp from "./components/jobExp.vue";
 import EduExp from "./components/eduExp.vue";
 import ModuleManagement from "./components/ModuleManagement.vue";
 import { jobExprices, baseInfo, educationInfos } from "./hooks";
+import { ElDialog } from "element-plus"
 
 // 组件映射
 const showOptionMap: ShowOptionMap = {
@@ -38,6 +39,7 @@ const showOptionMap: ShowOptionMap = {
 const currentShowOption = ref(showOptionMap[infoGroup.baseInfo]);
 // 切换组件
 const changeShowOption = (flag: string) => {
+    if (!flag) return;
     currentShowOption.value = showOptionMap[flag as keyof ShowOptionMap];
 };
 const isShowManagement = ref(false);
@@ -69,7 +71,9 @@ const showManagement = () => {
             {{ educationInfos }}
         </div>
     </div>
-    <ModuleManagement v-show="isShowManagement"></ModuleManagement>
+    <ElDialog v-model="isShowManagement" :draggable="true">
+        <ModuleManagement></ModuleManagement>
+    </ElDialog>
 </template>
 
 <style lang="less" scoped></style>
