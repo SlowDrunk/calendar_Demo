@@ -96,3 +96,9 @@ export type EducationExprices = {
     startTime: string;
     endTime: string;
 };
+
+export interface ShowOptionMap {
+    [infoGroup.baseInfo]: ShowOption;
+    [infoGroup.projectInfo]: ShowOption;
+    [infoGroup.educationInfo]: ShowOption;
+  }

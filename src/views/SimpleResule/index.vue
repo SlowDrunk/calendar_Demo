@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import { ref } from "vue";
-import type { baseInfo, JobExprices } from "./common";
-import { JobFormOption, educationOption, infoGroup } from "./fromOptions";
+import { markRaw, ref } from "vue";
+import type { baseInfo, JobExprices, ShowOptionMap } from "./common";
+import { JobFormOption, educationOption, infoGroup, baseInfoOption } from "./fromOptions";
 import { createFormData } from "./utils/index";
 import BaseFrom from "./components/BaseFrom.vue";
-import DynamicFrom from "./components/DynamicFrom.vue";
+import Navigation from "./components/navigation.vue";
+import JobExp from "./components/jobExp.vue";
+import EduExp from "./components/eduExp.vue";
 // 基本信息
 const baseInfo = ref<baseInfo>({});
 // 工作经历
@@ -13,6 +15,7 @@ const jobExprices = ref<JobExprices[]>([]);
 const educationInfos = ref([]);
 // 添加经历
 const addExprice = (flag) => {
+    console.log(flag)
     let defaultInfo = {};
     if (flag === infoGroup.educationInfo) {
         defaultInfo = createFormData(educationOption);
@@ -24,40 +27,48 @@ const addExprice = (flag) => {
         jobExprices.value.push(defaultInfo);
     }
 };
+
+// 组件映射
+const showOptionMap:ShowOptionMap = {
+    [infoGroup.baseInfo]: {
+        components: markRaw(BaseFrom),
+        modelValue: baseInfo,
+        props: {
+            baseInfoOption: baseInfoOption,
+        },
+    },
+    [infoGroup.projectInfo]: {
+        components: markRaw(JobExp),
+        props: {
+            jobExprices: jobExprices,
+        },
+    },
+    [infoGroup.educationInfo]: {
+        components: markRaw(EduExp),
+        props: {
+            educationInfos: educationInfos,
+        },
+    },
+};
+// 当前显示组件
+const currentShowOption = ref(showOptionMap[infoGroup.baseInfo]);
+// 切换组件
+const changeShowOption = (flag:string) => {
+    currentShowOption.value = showOptionMap[flag as keyof ShowOptionMap];
+};
+
 </script>
 
 <template>
-    <div class="">
-        <!-- 基本信息表单填写 -->
-        <BaseFrom v-model="baseInfo" />
-        <!-- 工作经历表单填写 -->
-        <div class="flex flex-col gap-4">
-            <div>
-                <h1>工作经历</h1>
-                <div v-for="(item, index) in jobExprices" :key="index">
-                    <DynamicFrom
-                        :formOptions="JobFormOption"
-                        v-model="jobExprices[index]"
-                    />
-                </div>
-                <el-button @click="addExprice(infoGroup.projectInfo)"
-                    >添加新的经历</el-button
-                >
-            </div>
+    <div class="w-48 px-4">
+        <Navigation @changeShowOption="changeShowOption"></Navigation>
+    </div>
+    <div class="flex flex-col gap-y-4">
+        <component :is="currentShowOption.components" v-model="currentShowOption.modelValue" v-bind="currentShowOption.props" @addExprice="addExprice"></component>
 
-            <div>
-                <h1>教育经历</h1>
-                <div v-for="(item, index) in educationInfos" :key="index">
-                    <DynamicFrom
-                        :formOptions="educationOption"
-                        v-model="educationInfos[index]"
-                    />
-                </div>
-                <el-button @click="addExprice(infoGroup.educationInfo)"
-                    >添加新的经历</el-button
-                >
-            </div>
-        </div>
+        <div>{{ baseInfo }}</div>
+        <div>{{ jobExprices }}</div>
+        <div>{{ educationInfos }}</div>
     </div>
 </template>
 

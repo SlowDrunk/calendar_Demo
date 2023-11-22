@@ -4,72 +4,41 @@ import { useVModel } from "@vueuse/core";
 
 interface IProps {
     modelValue: baseInfo;
+    baseInfoOption: any;
 }
 const Props = withDefaults(defineProps<IProps>(), {
     modelValue: () => ({} as baseInfo),
+    baseInfoOption: () => ({}),
 });
 const emit = defineEmits(["update:modelValue"]);
-const formData = useVModel(Props, "modelValue", emit);
+const formData: any = useVModel(Props, "modelValue", emit);
+
+// 添加表单项
+const addFormitem = (option:any) => {
+    option.status = 1
+};
+
 </script>
 
 <template>
-    <div class="">
+    <div class="mb-8">
         <div class="text-lg font-bold">基本信息</div>
         <div class="mb-4">包含你的个人信息及联系方式</div>
         <!-- 基本信息表单 -->
         <el-form :model="formData" label-width="120px">
             <div class="grid grid-cols-2 gap-6">
-                <el-form-item label="职位名称">
-                    <el-input
-                        placeholder="请填写职位名称"
-                        v-model="formData.roleName"
-                    />
-                </el-form-item>
-                <el-form-item label="个人头像">
-                    <img src="" alt="" />
-                </el-form-item>
-                <el-form-item label="姓名">
-                    <el-input
-                        placeholder="请填写姓名"
-                        v-model="formData.name"
-                    />
-                </el-form-item>
-                <el-form-item label="手机号码">
-                    <el-input
-                        placeholder="请填写手机号码"
-                        v-model="formData.phoneNumber"
-                    />
-                </el-form-item>
-                <el-form-item label="出生日期">
-                    <el-date-picker
-                        v-model="formData.birth"
-                        type="date"
-                        placeholder="请选择出生年月"
-                        format="YYYY-MM"
-                        value-format="YYYY-MM"
-                        clearable
-                    />
-                </el-form-item>
-                <el-form-item label="工作地点">
-                    <el-input
-                        placeholder="请填写工作地点"
-                        v-model="formData.jobCity"
-                    />
-                </el-form-item>
-                <el-form-item label="电子邮箱">
-                    <el-input
-                        placeholder="请填写电子邮箱"
-                        v-model="formData.email"
-                    />
-                </el-form-item>
-                <el-form-item label="微信号">
-                    <el-input
-                        placeholder="请填写微信号"
-                        v-model="formData.wechat"
-                    />
-                </el-form-item>
+                <template v-for="option in Props.baseInfoOption" :key="option">
+                    <el-form-item :label="option.label" v-if="option.status === 1">
+                        <el-input :placeholder="option.component.placeholder" v-model="formData[option.prop]" />
+                    </el-form-item>
+                </template>
             </div>
         </el-form>
+        <!-- 添加表单 -->
+        <template v-for="option in Props.baseInfoOption" :key="option">
+            <el-button plain v-show="option.status === 0" class="ml-0 mr-[10px]" @click="addFormitem(option)">+ {{
+                option.label }}</el-button>
+        </template>
     </div>
 </template>
 
