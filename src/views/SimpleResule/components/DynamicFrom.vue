@@ -30,9 +30,9 @@ const hideForm = () => {
 const renderDefaultTitle = computed(() => {
     switch (Props.formOptions[0].infoGroup) {
         case infoGroup.educationInfo:
-            return `${formData.value.schoolName} ${formData.value.level} ${formData.value.schoolTag} ${formData.value.startTime}-${formData.value.endTime}`;
+            return `${formData.value.schoolName || ""} ${formData.value.level || ""} ${formData.value.schoolTag || ""} ${formData.value.startTime || ""}-${formData.value.endTime || ""}`;
         case infoGroup.projectInfo:
-            return `${formData.value.companyName} ${formData.value.roleName} ${formData.value.startTime}-${formData.value.endTime}`;
+            return `${formData.value.companyName || ""} ${formData.value.roleName || ""} ${formData.value.startTime || ""}-${formData.value.endTime || ""}`;
     }
 });
 // 删除数据

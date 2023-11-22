@@ -1,5 +1,5 @@
-import { ref } from "vue";
-import { FromItem } from "./common/index";
+import { ref } from "vue"
+import { FromItem } from "./common/index"
 export enum infoGroup {
     baseInfo = "baseInfo",
     educationInfo = "educationInfo",
@@ -7,81 +7,111 @@ export enum infoGroup {
 }
 
 // 基本信息表单配置
-export const baseInfoOption: FromItem[] = ref([
-    {
-        label:"职位名称",
-        prop:"roleName",
-        infoGroup: infoGroup.baseInfo,
-        status:1,
-        component:{
-            comName:"el-input",
-            placeholder:"请输入职位名称"
-        }
-    },
-    {
-        label: "姓名",
-        prop: "name",
-        infoGroup: infoGroup.baseInfo,
-        status:1,
-        component: {
-            comName: "el-input",
-            placeholder: "请输入姓名",
+export const baseInfoOption: FromItem[] = ref({
+    personInfo: [
+        {
+            label: "姓名",
+            prop: "name",
+            infoGroup: infoGroup.baseInfo,
+            status: 1,
+            component: {
+                comName: "el-input",
+                props: {
+                    placeholder: "请输入姓名",
+                },
+            },
         },
-    },
-    {
-        label: "手机号码",
-        prop: "phone",
-        infoGroup: infoGroup.baseInfo,
-        status:1,
-        component: {
-            comName: "el-input",
-            placeholder: "请输入手机号",
+        {
+            label: "手机号码",
+            prop: "phone",
+            infoGroup: infoGroup.baseInfo,
+            status: 1,
+            component: {
+                comName: "el-input",
+                props: {
+                    placeholder: "请输入手机号",
+                },
+            },
         },
-    },
-    {
-        label: "出生日期",
-        prop: "birthday",
-        infoGroup: infoGroup.baseInfo,
-        status:1,
-        component: {
-            comName: "el-date-picker",
-            placeholder: "出生年月",
-            format: "YYYY-MM-DD",
-            valueFormat: "YYYY-MM-DD",
+        {
+            label: "出生日期",
+            prop: "birthday",
+            infoGroup: infoGroup.baseInfo,
+            status: 1,
+            component: {
+                comName: "el-date-picker",
+                props: {
+                    placeholder: "出生年月",
+                    format: "YYYY-MM-DD",
+                    valueFormat: "YYYY-MM-DD",
+                },
+            },
         },
-    },
-    {
-        label:"工作地点",
-        prop:"workPlace",
-        infoGroup: infoGroup.baseInfo,
-        status:1,
-        component:{
-            comName:"el-input",
-            placeholder:"请输入工作地点"
-        }
-    },
-    {
-        label:"电子邮箱",
-        prop:"email",
-        infoGroup: infoGroup.baseInfo,
-        status:0,
-        component:{
-            comName:"el-input",
-            placeholder:"请输入电子邮箱"
-        }
-    },
-    {
-        label:"微信号",
-        prop:"wechat",
-        infoGroup: infoGroup.baseInfo,
-        status:0,
-        component:{
-            comName:"el-input",
-            placeholder:"请输入微信号"
-        }
-    }
-]
-)
+        {
+            label: "电子邮箱",
+            prop: "email",
+            infoGroup: infoGroup.baseInfo,
+            status: 0,
+            component: {
+                comName: "el-input",
+                props: {
+                    placeholder: "请输入电子邮箱",
+                },
+            },
+        },
+        {
+            label: "微信号",
+            prop: "wechat",
+            infoGroup: infoGroup.baseInfo,
+            status: 0,
+            component: {
+                comName: "el-input",
+                props: {
+                    placeholder: "请输入微信号",
+                },
+            },
+        },
+    ],
+    jobHunting: [
+        {
+            label: "职位名称",
+            prop: "roleName",
+            infoGroup: infoGroup.baseInfo,
+            status: 1,
+
+            component: {
+                comName: "el-input",
+                props: {
+                    placeholder: "请输入职位名称",
+                },
+            },
+        },
+        {
+            label: "工作地点",
+            prop: "workPlace",
+            infoGroup: infoGroup.baseInfo,
+            status: 1,
+            component: {
+                comName: "el-input",
+                props: {
+                    placeholder: "请输入工作地点",
+                },
+            },
+        },
+        {
+            label: "工作描述",
+            prop: "jobExp",
+            infoGroup: infoGroup.baseInfo,
+            status: 0,
+            component: {
+                comName: "el-input",
+                props: {
+                    placeholder: "请输入工作描述",
+                },
+            },
+        },
+    ],
+})
 // 工作经历表单配置
 export const JobFormOption: FromItem[] = [
     {
@@ -142,7 +172,7 @@ export const JobFormOption: FromItem[] = [
             valueFormat: "YYYY-MM",
         },
     },
-];
+]
 
 // 项目经历表单配置
 export const educationOption: FromItem[] = [
@@ -255,5 +285,4 @@ export const educationOption: FromItem[] = [
             rangeSeparator: "至",
         },
     },
-];
-
+]

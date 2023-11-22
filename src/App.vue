@@ -5,7 +5,7 @@ const router = useRouter();
 </script>
 
 <template>
-    <div class="flex flex-row justify-betwee gap-40">
+    <div class="flex flex-row gap-40">
         <div class="w-20 flex flex-col gap-6">
             <button
                 @click="() => router.push('/')"
@@ -26,7 +26,9 @@ const router = useRouter();
                 简单简历
             </button>
         </div>
-        <RouterView />
+        <div class="w-[800px] h-[600px]">
+            <RouterView />
+        </div>
     </div>
 </template>
 
