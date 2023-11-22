@@ -113,7 +113,7 @@ export const JobFormOption: FromItem[] = [
     },
     {
         label: "所在城市",
-        prop: "department",
+        prop: "jobCity",
         infoGroup: infoGroup.projectInfo,
         component: {
             comName: "el-input",

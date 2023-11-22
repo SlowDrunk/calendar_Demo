@@ -4,16 +4,19 @@ import type { JobExprices, FromItem } from "../common";
 import { infoGroup } from "../fromOptions";
 import { useVModel } from "@vueuse/core";
 import MyEditor from "../../DynamicForm/components/MyEditor.vue";
+import { c } from "vitest/dist/reporters-5f784f42.js";
 
 interface IProps {
     modelValue: any;
     formOptions: FromItem[];
+    infoGroup: string;
 }
 const Props = withDefaults(defineProps<IProps>(), {
     modelValue: () => ({}),
     formOptions: () => [],
+    infoGroup: " ",
 });
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "deleteExprice"]);
 const formData = useVModel(Props, "modelValue", emit);
 // 编辑&删除
 const isShowFrom = ref(false);
@@ -23,16 +26,19 @@ const showForm = () => {
 const hideForm = () => {
     isShowFrom.value = false;
 };
+// 根据分组计算头部数据
 const renderDefaultTitle = computed(() => {
     switch (Props.formOptions[0].infoGroup) {
         case infoGroup.educationInfo:
-            return `${formData.value.schoolName} ${
-                formData.value.level
-            } ${formData.value.schoolTag}`;
+            return `${formData.value.schoolName} ${formData.value.level} ${formData.value.schoolTag} ${formData.value.startTime}-${formData.value.endTime}`;
         case infoGroup.projectInfo:
-            return `${formData.value.companyName} ${formData.value.roleName}`;
+            return `${formData.value.companyName} ${formData.value.roleName} ${formData.value.startTime}-${formData.value.endTime}`;
     }
 });
+// 删除数据
+const deleteItem = () => {
+    emit("deleteExprice", Props.infoGroup, Props.modelValue);
+};
 </script>
 
 <template>
@@ -55,7 +61,7 @@ const renderDefaultTitle = computed(() => {
             </div>
             <div class="ml-[auto]">
                 <el-button type="primary" @click="showForm">编辑</el-button>
-                <el-button type="danger">删除</el-button>
+                <el-button type="danger" @click="deleteItem">删除</el-button>
             </div>
         </div>
         <div v-show="isShowFrom">

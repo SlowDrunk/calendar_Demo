@@ -10,7 +10,7 @@ const Props  = withDefaults(defineProps<IProps>(),{
     educationInfos: () => ([]),
 })
 
-const emit = defineEmits(["addExprice"]);
+const emit = defineEmits(["addExprice", "deleteExprice"]);
 
 </script>
 

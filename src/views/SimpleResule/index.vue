@@ -7,6 +7,7 @@ import BaseFrom from "./components/BaseFrom.vue";
 import Navigation from "./components/navigation.vue";
 import JobExp from "./components/jobExp.vue";
 import EduExp from "./components/eduExp.vue";
+
 // 基本信息
 const baseInfo = ref<baseInfo>({});
 // 工作经历
@@ -29,7 +30,7 @@ const addExprice = (flag) => {
 };
 
 // 组件映射
-const showOptionMap:ShowOptionMap = {
+const showOptionMap: ShowOptionMap = {
     [infoGroup.baseInfo]: {
         components: markRaw(BaseFrom),
         modelValue: baseInfo,
@@ -53,10 +54,24 @@ const showOptionMap:ShowOptionMap = {
 // 当前显示组件
 const currentShowOption = ref(showOptionMap[infoGroup.baseInfo]);
 // 切换组件
-const changeShowOption = (flag:string) => {
+const changeShowOption = (flag: string) => {
     currentShowOption.value = showOptionMap[flag as keyof ShowOptionMap];
 };
 
+// 删除经历
+const deleteExprice = (flag: string, item: any) => {
+    if (flag === infoGroup.projectInfo) {
+        const index = jobExprices.value.indexOf(item);
+        if (index >= 0) {
+            jobExprices.value.splice(index, 1);
+        }
+    } else if (flag === infoGroup.educationInfo) {
+        const index = educationInfos.value.indexOf(item);
+        if (index >= 0) {
+            educationInfos.value.splice(index, 1);
+        }
+    }
+};
 </script>
 
 <template>
@@ -64,7 +79,8 @@ const changeShowOption = (flag:string) => {
         <Navigation @changeShowOption="changeShowOption"></Navigation>
     </div>
     <div class="flex flex-col gap-y-4">
-        <component :is="currentShowOption.components" v-model="currentShowOption.modelValue" v-bind="currentShowOption.props" @addExprice="addExprice"></component>
+        <component :is="currentShowOption.components" v-model="currentShowOption.modelValue"
+            v-bind="currentShowOption.props" @addExprice="addExprice" @deleteExprice="deleteExprice"></component>
 
         <div>{{ baseInfo }}</div>
         <div>{{ jobExprices }}</div>
