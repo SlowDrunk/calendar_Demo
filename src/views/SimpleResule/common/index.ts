@@ -66,7 +66,7 @@ type FormConfig = {
     scrollIntoViewOptions?: object | boolean;
 };
 
-export type baseInfo = {
+export type baseInfoType = {
     roleName: string;
     name: string;
     phoneNumber: string;

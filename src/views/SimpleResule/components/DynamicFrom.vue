@@ -5,7 +5,8 @@ import { infoGroup } from "../fromOptions";
 import { useVModel } from "@vueuse/core";
 import MyEditor from "../../DynamicForm/components/MyEditor.vue";
 import { c } from "vitest/dist/reporters-5f784f42.js";
-
+import { useFromInfo } from "../hooks";
+const { deleteExprice } = useFromInfo();
 interface IProps {
     modelValue: any;
     formOptions: FromItem[];
@@ -16,7 +17,7 @@ const Props = withDefaults(defineProps<IProps>(), {
     formOptions: () => [],
     infoGroup: " ",
 });
-const emit = defineEmits(["update:modelValue", "deleteExprice"]);
+const emit = defineEmits(["update:modelValue"]);
 const formData = useVModel(Props, "modelValue", emit);
 // 编辑&删除
 const isShowFrom = ref(false);
@@ -37,14 +38,14 @@ const renderDefaultTitle = computed(() => {
 });
 // 删除数据
 const deleteItem = () => {
-    emit("deleteExprice", Props.infoGroup, Props.modelValue);
+    deleteExprice(Props.infoGroup, Props.modelValue);
 };
 </script>
 
 <template>
     <div class="border p-3">
         <!-- 默认展示部分 -->
-        <div class="flex flex-row items-center p-[16px]" v-show="!isShowFrom">
+        <div class="flex flex-row items-center p-[16px]" v-if="!isShowFrom">
             <div
                 class="w-[25px] h-[100%] flex items-center justify-center mr-2"
             >
@@ -64,7 +65,7 @@ const deleteItem = () => {
                 <el-button type="danger" @click="deleteItem">删除</el-button>
             </div>
         </div>
-        <div v-show="isShowFrom">
+        <div v-if="isShowFrom">
             <!-- 表单 -->
             <div class="">
                 <el-form :model="formData" label-width="120px">
