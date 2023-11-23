@@ -1,4 +1,4 @@
-import { ShowOptionMap } from './index';
+
 import { infoGroup } from "../fromOptions";
 import Vue from "vue";
 import type {
@@ -31,39 +31,16 @@ export type ComponentType =
     | Record<string, any>; // 放宽限制
 
 // 表单选项
-export type FromItem = FormItemProps | {
-    label: string;
-    prop: string;
-    status?: number;
-    class?: string;
-    infoGroup: string;
-    component: ComponentType;
-};
-
-enum FormPosition {
-    left = "left",
-    right = "right",
-    top = "top",
-    bottom = "bottom",
-}
-// 表单
-type FormConfig = {
-    labelWidth?: string;
-    formItems?: FromItem[];
-    inline?: boolean;
-    labelPosition?: FormPosition;
-    labelSuffix?: string;
-    hideRequireAsterisk?: boolean;
-    requireAsteriskPosition?: FormPosition;
-    showMessage?: boolean;
-    inlineMessage?: boolean;
-    statusIcon?: boolean;
-    validateOnRuleChange?: boolean;
-    size?: "" | "large" | "default" | "small";
-    disable?: boolean;
-    scrollToError?: boolean;
-    scrollIntoViewOptions?: object | boolean;
-};
+export type FromItem =
+    | FormItemProps
+    | {
+          label: string;
+          prop: string;
+          status?: number;
+          class?: string;
+          infoGroup: string;
+          component: ComponentType;
+      };
 
 export type baseInfoType = {
     roleName?: string;
@@ -75,29 +52,102 @@ export type baseInfoType = {
     wechat?: string;
 };
 
-export type JobExprices = {
-    companyName: string;
-    roleName: string;
-    jobCity: string;
-    startTime: string;
-    endTime: string;
-    jobDesc?: string;
-    showForm: boolean;
-};
-
-export type EducationExprices = {
-    schoolName: "";
+// 教育经历
+export interface EducationInfo {
+    showFrom: boolean;
+    educationLevel: string;
+    typeOfEducational: string;
+    city: string;
+    schoolName: string;
+    collegeName: string;
+    major: string;
+    startDate: string;
+    endDate: string;
+    experience: string;
     schoolTag: string[];
-    profession: string;
-    level: string;
-    educationSystem: string;
-    college: string;
-    schoolCity: string;
-    startTime: string;
-    endTime: string;
-    showForm: boolean;
+}
+// 项目经历
+export type ProjectInfo = {
+    showFrom: boolean;
+    city: string;
+    name: string;
+    startMonth: string;
+    endMonth: string;
+    role: string;
+    content: string;
+    desc: string;
 };
-
+// 实践经历
+export type PracticeInfo = {
+    showFrom: boolean;
+    city: string;
+    company: string;
+    job: string;
+    ext: string;
+    department: string;
+    desc: string;
+    startMonth: string;
+    endMonth: string;
+};
+// 研究经历
+export type ResearchInfo = {
+    showFrom: boolean;
+    city: string;
+    name: string;
+    startMonth: string;
+    endMonth: string;
+    role: string;
+    desc: string;
+};
+// 荣誉信息
+export type HonorInfo = {
+    honor: string;
+    thesis: string;
+    patent: string;
+};
+// 活动及自定义
+export type ActivityInfo = {
+    showFrom: boolean;
+    name: string;
+    department: string;
+    role: string;
+    city: string;
+    startMonth: string;
+    endMonth: string;
+    desc: string;
+};
+export type OtherInfo = {
+    skill: string[];
+    cert: string[];
+    hobbies: string[];
+    language: string[];
+};
+export interface CustomizeInfo extends ActivityInfo {}
+// 大的简历对象
+export type ResumeData = {
+    id: number;
+    accoundId: number;
+    resumeId: number;
+    saveTime: string;
+    eduExp: EducationInfo[];
+    proExp: ProjectInfo[];
+    researchExp: ResearchInfo[];
+    praExp: PracticeInfo[];
+    activities: ActivityInfo[];
+    customizes: CustomizeInfo[];
+    others: OtherInfo;
+};
+type baseInfoOptionType = {
+    personInfo: FromItem[];
+    jobHunting: FromItem[];
+};
+export type OptionFrom = {
+    baseInfoOption: baseInfoOptionType;
+    praFormOption: FromItem[];
+    eduOption: FromItem[];
+    proExpOption: FromItem[];
+    researchExpFormOp: FromItem[];
+};
 type ShowOption = {
     components: Vue.Component;
     modelValue?: any; // 你可以根据实际情况设置更具体的类型

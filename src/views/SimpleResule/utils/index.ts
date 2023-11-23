@@ -1,8 +1,9 @@
+import { InfoGroupMapping, optionData } from "./../fromOptions";
 import { FromItem } from "../common/index";
 
 // 根据表单配置生成初始对象
 export function createFormData(OptionsInfo: FromItem[]) {
-    const formData = {showForm:false};
+    const formData = { showForm: true };
     OptionsInfo.forEach((item) => {
         // @ts-ignore
         const { prop, component } = item;
@@ -31,4 +32,9 @@ export function createFormData(OptionsInfo: FromItem[]) {
         formData[prop] = defaultValue;
     });
     return formData;
+}
+// 获取表单配置
+export function getFormOptions(flag: string) {
+    const optionKey = InfoGroupMapping[flag].optionKey;
+    return optionData.value[optionKey];
 }

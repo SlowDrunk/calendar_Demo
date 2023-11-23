@@ -4,9 +4,10 @@ import type { FromItem } from "../common";
 import { infoGroup } from "../fromOptions";
 import { useVModel } from "@vueuse/core";
 import MyEditor from "@/components/MyEditor.vue";
-import { useFromInfo, educationInfos, jobExprices } from "../hooks";
-const { closeOtherForm } = useFromInfo();
-const { deleteExprice } = useFromInfo();
+import { resumeData, useFromInfo } from "../hooks";
+import { InfoGroupMapping } from "../fromOptions";
+
+const { closeOtherForm, deleteExpriceItem } = useFromInfo();
 
 interface IProps {
     modelValue: any;
@@ -22,11 +23,8 @@ const emit = defineEmits(["update:modelValue"]);
 const formData = useVModel(Props, "modelValue", emit);
 // 编辑&删除
 const showForm = () => {
-    if (Props.infoGroup === infoGroup.educationInfo) {
-        closeOtherForm(educationInfos.value);
-    } else if (Props.infoGroup === infoGroup.jobExprices) {
-        closeOtherForm(jobExprices.value);
-    }
+    const valueKey = InfoGroupMapping[Props.infoGroup].dataKey;
+    closeOtherForm(resumeData.value[valueKey]);
     formData.value.showForm = true;
 };
 const hideForm = () => {
@@ -35,14 +33,14 @@ const hideForm = () => {
 // 根据分组计算头部数据
 const renderDefaultTitle = computed(() => {
     // @ts-ignore
-    switch (Props.formOptions[0].infoGroup) {
-        case infoGroup.educationInfo:
+    switch (Props.infoGroup) {
+        case infoGroup.educationExp:
             return `${formData.value.schoolName || ""} ${
                 formData.value.level || ""
             } ${formData.value.schoolTag || ""} ${
                 formData.value.startTime || ""
             }-${formData.value.endTime || ""}`;
-        case infoGroup.projectInfo:
+        case infoGroup.projectExp:
             return `${formData.value.companyName || ""} ${
                 formData.value.roleName || ""
             } ${formData.value.startTime || ""}-${
@@ -52,7 +50,7 @@ const renderDefaultTitle = computed(() => {
 });
 // 删除数据
 const deleteItem = () => {
-    deleteExprice(Props.infoGroup, Props.modelValue);
+    deleteExpriceItem(Props.infoGroup, Props.modelValue);
 };
 </script>
 

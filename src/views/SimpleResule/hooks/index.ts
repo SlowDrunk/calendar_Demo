@@ -1,31 +1,26 @@
-import { infoGroup } from './../../DynamicForm/formOptions';
-import { infoGroup } from "./../fromOptions";
-import { projectExprices } from "./index";
+import type { ResumeData, baseInfoType } from "../common/index";
+import { infoGroup, optionData, InfoGroupMapping } from "./../fromOptions";
 import { ref } from "vue";
-import {
-    JobFormOption,
-    educationOption,
-    projectExperienceOption,
-    infoGroup,
-} from "../fromOptions.ts";
-import type { baseInfoType } from "../common";
 import { createFormData } from "../utils/index";
-const resumeData = ref({
-    eduExp:[],
-    proExp:[],
-    researchExp:[],
-    praExp:[],
-    activities:[]
-})
-// 基本信息
 export const baseInfo = ref<baseInfoType>({});
-// 工作经历
-export const jobExprices = ref<any[]>([]);
-// 教育信息
-export const educationInfos = ref<any>([]);
-
-// 项目经历
-export const projectExprices = ref<any[]>([]);
+export const resumeData = ref<ResumeData | any>({
+    id: 0,
+    resumeId: 0,
+    accoundId: 0,
+    saveTime: "",
+    eduExp: [],
+    proExp: [],
+    researchExp: [],
+    praExp: [],
+    activities: [],
+    customizes: [],
+    others: {
+        skill: [],
+        cert: [],
+        hobbies: [],
+        language: [],
+    },
+});
 export function useFromInfo() {
     // 关闭其他选项表单确保只有一个展开项
     const closeOtherForm = (infoArray: any[]) => {
@@ -33,56 +28,27 @@ export function useFromInfo() {
             item.showForm = false;
         });
     };
-    // 添加经历
-    const addExprice = (flag: string) => {
-        let defaultInfo: any = {};
-        jobExprices.value.forEach((item: any) => {
-            item.showForm = false;
-        });
-        if (flag === infoGroup.educationInfo) {
-            closeOtherForm(educationInfos.value);
-            defaultInfo = createFormData(educationOption);
-            // @ts-ignore
-            resumeData.value[flag].push(defaultInfo);
-        } else if (flag === infoGroup.jobExprices) {
-            closeOtherForm(jobExprices.value);
-            defaultInfo = createFormData(JobFormOption);
-
-            // @ts-ignore
-            jobExprices.value.push(defaultInfo);
-        } else if (flag === infoGroup.projectInfo) {
-            closeOtherForm(projectExprices.value);
-            defaultInfo = createFormData(projectExperienceOption);
-            // @ts-ignore
-            projectExprices.value.push(defaultInfo);
-        }
-        defaultInfo.showForm = true;
+    // 新增经历
+    const addExpriceItem = (flag: string) => {
+        const optionKey = InfoGroupMapping[flag].optionKey;
+        const valueKey = InfoGroupMapping[flag].dataKey;
+        closeOtherForm(resumeData.value[valueKey]);
+        let defaultObj: any = {};
+        defaultObj = createFormData(optionData.value[optionKey]);
+        resumeData.value[valueKey].push(defaultObj);
     };
-
     // 删除经历
-    const deleteExprice = (flag: string, item: any) => {
-        if (flag === infoGroup.jobExprices) {
-            const index = jobExprices.value.indexOf(item);
-            if (index >= 0) {
-                jobExprices.value.splice(index, 1);
-            }
-        } else if (flag === infoGroup.educationInfo) {
-            const index = educationInfos.value.indexOf(item);
-            if (index >= 0) {
-                educationInfos.value.splice(index, 1);
-            }
-        } else if (flag === infoGroup.projectInfo) {
-            const index = projectExprices.value.indexOf(item);
-            if (index >= 0) {
-                projectExprices.value.splice(index, 1);
-            }
+    const deleteExpriceItem = (flag: string, item: any) => {
+        const valueKey = InfoGroupMapping[flag].dataKey;
+        const index = resumeData.value[valueKey].indexOf(item);
+        if (index >= 0) {
+            resumeData.value[valueKey].splice(index, 1);
         }
     };
-
     return {
-        deleteExprice,
-        addExprice,
+        addExpriceItem,
         closeOtherForm,
+        deleteExpriceItem,
     };
 }
 
