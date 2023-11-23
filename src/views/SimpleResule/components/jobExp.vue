@@ -23,13 +23,13 @@ const { addExprice } = useFromInfo();
         >
             <template #item="{ element, index }">
                 <DynamicFrom
-                    :infoGroup="infoGroup.educationInfo"
+                    :infoGroup="infoGroup.jobExprices"
                     :formOptions="JobFormOption"
                     v-model="jobExprices[index]"
                 />
             </template>
         </draggable>
-        <el-button @click="addExprice(infoGroup.projectInfo)">添加新的经历</el-button
+        <el-button @click="addExprice(infoGroup.jobExprices)">添加新的经历</el-button
         >
     </div>
 </template>

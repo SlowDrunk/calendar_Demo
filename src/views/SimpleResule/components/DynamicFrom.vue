@@ -24,7 +24,7 @@ const formData = useVModel(Props, "modelValue", emit);
 const showForm = () => {
     if (Props.infoGroup === infoGroup.educationInfo) {
         closeOtherForm(educationInfos.value);
-    } else if (Props.infoGroup === infoGroup.projectInfo) {
+    } else if (Props.infoGroup === infoGroup.jobExprices) {
         closeOtherForm(jobExprices.value);
     }
     formData.value.showForm = true;

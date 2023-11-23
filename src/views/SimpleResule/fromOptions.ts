@@ -1,9 +1,12 @@
 import { ref } from "vue";
 import { FromItem } from "./common/index";
 export enum infoGroup {
-    baseInfo = "baseInfo",
-    educationInfo = "educationInfo",
-    projectInfo = "projectInfo",
+    baseInfo = "baseInfo", // 基本信息
+    educationInfo = "educationInfo", // 教育经历
+    jobExprices = "jobExprices", // 工作经历
+    projectInfo = "projectInfo", // 项目经历
+    researchExprices = "researchExprices", // 研究经历
+    communityExperiences = "communityExperiences", // 社团经历
 }
 type baseInfoOptionType = {
     personInfo: FromItem[];
@@ -120,7 +123,7 @@ export const JobFormOption: FromItem[] = [
     {
         label: "公司名称",
         prop: "companyName",
-        infoGroup: infoGroup.projectInfo,
+        infoGroup: infoGroup.jobExprices,
         component: {
             comName: "el-input",
             placeholder: "请输入公司名称",
@@ -129,7 +132,7 @@ export const JobFormOption: FromItem[] = [
     {
         label: "职位名称",
         prop: "roleName",
-        infoGroup: infoGroup.projectInfo,
+        infoGroup: infoGroup.jobExprices,
         component: {
             comName: "el-input",
             placeholder: "请输入职位名称",
@@ -138,7 +141,7 @@ export const JobFormOption: FromItem[] = [
     {
         label: "所在部门",
         prop: "department",
-        infoGroup: infoGroup.projectInfo,
+        infoGroup: infoGroup.jobExprices,
         component: {
             comName: "el-input",
             placeholder: "请输入所在部门",
@@ -147,7 +150,7 @@ export const JobFormOption: FromItem[] = [
     {
         label: "所在城市",
         prop: "jobCity",
-        infoGroup: infoGroup.projectInfo,
+        infoGroup: infoGroup.jobExprices,
         component: {
             comName: "el-input",
             placeholder: "请输入所在部门",
@@ -156,7 +159,7 @@ export const JobFormOption: FromItem[] = [
     {
         label: "开始时间",
         prop: "startTime",
-        infoGroup: infoGroup.projectInfo,
+        infoGroup: infoGroup.jobExprices,
         component: {
             comName: "el-date-picker",
             placeholder: "开始时间",
@@ -167,7 +170,7 @@ export const JobFormOption: FromItem[] = [
     {
         label: "结束时间",
         prop: "endTime",
-        infoGroup: infoGroup.projectInfo,
+        infoGroup: infoGroup.jobExprices,
         component: {
             comName: "el-date-picker",
             placeholder: "开始时间",
@@ -177,7 +180,7 @@ export const JobFormOption: FromItem[] = [
     },
 ];
 
-// 项目经历表单配置
+// 教育经历表单配置
 export const educationOption: FromItem[] = [
     {
         label: "学校",
@@ -287,6 +290,124 @@ export const educationOption: FromItem[] = [
         label: "结束时间",
         prop: "endTime",
         infoGroup: infoGroup.projectInfo,
+        component: {
+            comName: "el-date-picker",
+            placeholder: "开始时间",
+            format: "YYYY-MM",
+            valueFormat: "YYYY-MM",
+        },
+    },
+];
+
+// 项目经历表单配置
+export const projectExperienceOption: FromItem[] = [
+    {
+        label: "项目名称",
+        prop: "projectName",
+        class: "",
+        infoGroup: infoGroup.projectInfo,
+        component: {
+            comName: "el-input",
+            placeholder: "请输入项目名称",
+        },
+    },
+    {
+        label: "你的角色",
+        prop: "roleName",
+        infoGroup: infoGroup.projectInfo,
+        component: {
+            comName: "el-input",
+            placeholder: "请输入你的角色",
+        },
+    },
+    {
+        label: "所在城市",
+        prop: "jobCity",
+        infoGroup: infoGroup.projectInfo,
+        component: {
+            comName: "el-input",
+            placeholder: "请输入所在部门",
+        },
+    },
+    {
+        label: "开始时间",
+        prop: "startTime",
+        infoGroup: infoGroup.projectInfo,
+        component: {
+            comName: "el-date-picker",
+            placeholder: "开始时间",
+            format: "YYYY-MM",
+            valueFormat: "YYYY-MM",
+        },
+    },
+    {
+        label: "结束时间",
+        prop: "endTime",
+        infoGroup: infoGroup.projectInfo,
+        component: {
+            comName: "el-date-picker",
+            placeholder: "开始时间",
+            format: "YYYY-MM",
+            valueFormat: "YYYY-MM",
+        },
+    },
+];
+
+// 研究经历表单配置
+export const researchExperienceFormConfig: FromItem[] = [
+    {
+        label: "研究/经历名称",
+        prop: "projectName",
+        class: "col-span-6",
+        infoGroup: infoGroup.researchExprices,
+        component: {
+            comName: "el-input",
+            placeholder: "请输入项目名称",
+        },
+    },
+    {
+        label: "你的角色",
+        prop: "roleName",
+        class: "col-span-6",
+        infoGroup: infoGroup.researchExprices,
+        component: {
+            comName: "el-input",
+            placeholder: "请输入你的角色",
+        },
+    },
+    {
+        label: "所在部门",
+        prop: "department",
+        infoGroup: infoGroup.researchExprices,
+        component: {
+            comName: "el-input",
+            placeholder: "请输入所在部门",
+        },
+    },
+    {
+        label: "所在城市",
+        prop: "jobCity",
+        infoGroup: infoGroup.researchExprices,
+        component: {
+            comName: "el-input",
+            placeholder: "请输入所在部门",
+        },
+    },
+    {
+        label: "开始时间",
+        prop: "startTime",
+        infoGroup: infoGroup.researchExprices,
+        component: {
+            comName: "el-date-picker",
+            placeholder: "开始时间",
+            format: "YYYY-MM",
+            valueFormat: "YYYY-MM",
+        },
+    },
+    {
+        label: "结束时间",
+        prop: "endTime",
+        infoGroup: infoGroup.researchExprices,
         component: {
             comName: "el-date-picker",
             placeholder: "开始时间",
