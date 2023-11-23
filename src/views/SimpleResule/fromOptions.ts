@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { FromItem } from "./common/index";
 export enum infoGroup {
     baseInfo = "baseInfo", // 基本信息
-    educationInfo = "educationInfo", // 教育经历
+    educationInfo = "educationInfos", // 教育经历
     jobExprices = "jobExprices", // 工作经历
     projectInfo = "projectInfo", // 项目经历
     researchExprices = "researchExprices", // 研究经历

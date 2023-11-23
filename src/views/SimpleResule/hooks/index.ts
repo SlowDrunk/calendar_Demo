@@ -1,3 +1,4 @@
+import { infoGroup } from './../../DynamicForm/formOptions';
 import { infoGroup } from "./../fromOptions";
 import { projectExprices } from "./index";
 import { ref } from "vue";
@@ -9,12 +10,20 @@ import {
 } from "../fromOptions.ts";
 import type { baseInfoType } from "../common";
 import { createFormData } from "../utils/index";
+const resumeData = ref({
+    eduExp:[],
+    proExp:[],
+    researchExp:[],
+    praExp:[],
+    activities:[]
+})
 // 基本信息
 export const baseInfo = ref<baseInfoType>({});
 // 工作经历
 export const jobExprices = ref<any[]>([]);
 // 教育信息
 export const educationInfos = ref<any>([]);
+
 // 项目经历
 export const projectExprices = ref<any[]>([]);
 export function useFromInfo() {
@@ -34,7 +43,7 @@ export function useFromInfo() {
             closeOtherForm(educationInfos.value);
             defaultInfo = createFormData(educationOption);
             // @ts-ignore
-            educationInfos.value.push(defaultInfo);
+            resumeData.value[flag].push(defaultInfo);
         } else if (flag === infoGroup.jobExprices) {
             closeOtherForm(jobExprices.value);
             defaultInfo = createFormData(JobFormOption);
